@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_FRAMES 10
+
+struct frame {
+    int sequence;
+    char data[20];
+};
+
+void sort_frames(struct frame frames[], int num_frames) {
+    // sort the frames by sequence number
+    for (int i = 0; i < num_frames - 1; i++) {
+        for (int j = i + 1; j < num_frames; j++) {
+            if (frames[i].sequence > frames[j].sequence) {
+                // swap the frames
+                struct frame temp = frames[i];
+                frames[i] = frames[j];
+                frames[j] = temp;
+            }
+        }
+    }
+}
+
+int main() {
+    struct frame frames[MAX_FRAMES];
+    int num_frames;
+
+    // read in the number of frames to be sorted
+    printf("Enter the number of frames: ");
+    scanf("%d", &num_frames);
+
+    // read in each frame's sequence number and data payload
+    for (int i = 0; i < num_frames; i++) {
+        printf("Enter sequence number for frame %d: ", i + 1);
+        scanf("%d", &frames[i].sequence);
+        printf("Enter data for frame %d: ", i + 1);
+        scanf("%s", frames[i].data);
+    }
+
+    // sort the frames by sequence number
+    sort_frames(frames, num_frames);
+
+    // print out the sorted frames
+    printf("Sorted frames:\n");
+    for (int i = 0; i < num_frames; i++) {
+        printf("Frame %d: %s\n", frames[i].sequence, frames[i].data);
+    }
+
+    return 0;
+}
